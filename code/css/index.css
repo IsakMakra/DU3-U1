@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    background-color: black;
+}
+
+main {
+    border-radius: 30px;
+    background-color: orangered;
+    height: 100vh;
+}
+
+header {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 4vh;
+    align-items: center;
+    height: 5vh;
+}
+
+header > img {
+    height: 100%;
+    width: 5vh;
+    grid-column: 1;
+}
+
+header > div {
+    justify-self: end;
+    font-size: 3vh;
+    text-shadow: darkred 3px 3px 3px;
+    grid-column: 2;
+}
+
+section {
+    height: 70vh;
+    padding: 0 4vh;
+}
+
+footer {
+    padding: 4vh;
+    font-size: 2.5vh;
+    text-shadow: darkred 3px 3px 3px;
+}
