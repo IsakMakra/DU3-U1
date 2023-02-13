@@ -14,4 +14,4 @@ function get_pic_prefix(breed_url) {
 // do a fetch with the new URL (JSON), the key "message" of the resource is a link to the picture.
 
 
-login_page();
+display_login_or_register_page(type_login, funny_text_login, change_page_text_login);

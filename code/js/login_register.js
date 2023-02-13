@@ -1,75 +1,68 @@
 "use strict";
 
 let type_login = "LOGIN";
-let text_login = "Let the magic start!"; 
-let change_view_login = "New to this? Register for free";
+let funny_text_login = "Let the magic start!"; 
+let change_page_text_login = "New to this? Register for free";
 
 let type_register = "REGISTER";
-let text_register = "Ready when you are..."; 
-let change_view_register = "Already have an account? Go to login";
+let funny_text_register = "Ready when you are..."; 
+let change_page_text_register = "Already have an account? Go to login";
 
 let content = document.querySelector("section");
 
-function display_login_or_register (type, text, change_view) {
+function create_login_or_register (type, funny_text, change_page_text) {
     content.innerHTML = ``;
     content.innerHTML = `
         <h1>${type}</h1>
-        <div> 
-            <p id="un">User Name:</p>
+        <div id ="input_field"> 
+            <p class="login_credentials" id="un">User Name:</p>
             <input name="un"> 
-            <p id="pw">Password:</p>
+            <p class="login_credentials" id="pw">Password:</p>
             <input name="pw">
-            <p id="text">${text}</p>
+            <p id="funny_text">${funny_text}</p>
             <button>${type}</button>
         </div>
-        <p id="change_view">${change_view}</p>
+        <p id="change_page">${change_page_text}</p>
     `;
 }
 
-function login_page() {
-    display_login_or_register(type_login, text_login, change_view_login);
-    let login_button = document.querySelector("button");
-    login_button.addEventListener("click", login_handler);
+function display_login_or_register_page(type, funny_text, change_page_text) {
 
-    function login_handler (event) {
+    create_login_or_register(type, funny_text, change_page_text);
+
+    let current_type = document.querySelector("h1").textContent;
+
+    let button = document.querySelector("button");
+    button.addEventListener("click", input_handler);
+
+    let change_page_button = document.querySelector("#change_page");
+    change_page_button.addEventListener("click", change_page);
+
+    function change_page () {
+        if (current_type === type_login) {
+            display_login_or_register_page(type_register, funny_text_register, change_page_text_register);
+        }
+        else if (document.querySelector("h1").textContent === type_register) {
+            display_login_or_register_page(type_login, funny_text_login, change_page_text_login);
+        }
+    }
+
+    function input_handler (event) {
+
         let username_input = document.querySelector("input[name='un']").value;
         let password_input = document.querySelector("input[name='pw']").value;
         
-        console.log(`Username: ${username_input}`);
-        console.log(`Password: ${password_input}`);
-
+        if (current_type === type_login) {
+            console.log("You Tried To Login With The Following...");
+            console.log(`Username: ${username_input}`);
+            console.log(`Password: ${password_input}`);
+        }
+        else if (current_type === type_register) {
+            console.log("A New Account Has Been Made...")
+            console.log(`Username: ${username_input}`);
+            console.log(`Password: ${password_input}`);
+        }
+    
         //ADD STUFF
-    }
-
-    let change_view = document.querySelector("#change_view");
-    change_view.addEventListener("click", change_page);
-}
-
-function register_page() {
-    display_login_or_register(type_register, text_register, change_view_register);
-    let register_button = document.querySelector("button");
-    register_button.addEventListener("click", register_handler);
-
-    function register_handler (event) {
-        let username_input = document.querySelector("input[name='un']").value;
-        let password_input = document.querySelector("input[name='pw']").value;
-        
-        console.log("New Account Created:");
-        console.log(`Username: ${username_input}`);
-        console.log(`Password: ${password_input}`);
-
-        //ADD STUFF
-    }
-
-    let change_view = document.querySelector("#change_view");
-    change_view.addEventListener("click", change_page);
-}
-
-function change_page () {
-    if (document.querySelector("h1").textContent === type_login) {
-        register_page();
-    }
-    else if (document.querySelector("h1").textContent === type_register) {
-        login_page();
     }
 }
