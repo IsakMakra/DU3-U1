@@ -8,6 +8,7 @@ let type_register = "REGISTER";
 let funny_text_register = "Ready when you are..."; 
 let change_page_text_register = "Already have an account? Go to login";
 
+let background = document.querySelector("main");
 let content = document.querySelector("section");
 
 function create_login_or_register (type, funny_text, change_page_text) {
@@ -19,11 +20,18 @@ function create_login_or_register (type, funny_text, change_page_text) {
             <input name="un"> 
             <p class="login_credentials" id="pw">Password:</p>
             <input type="password" name="pw">
-            <p id="funny_text">${funny_text}</p>
-            <button>${type}</button>
         </div>
-        <p id="change_page">${change_page_text}</p>
+        <p id="funny_text">${funny_text}</p>
+        <button>${type}</button>
+        <p id="change_page_text">${change_page_text}</p>
     `;
+
+    if (type === type_register) {
+        background.style.backgroundColor = "red";
+    }
+    else {
+        background.style.backgroundColor = "orangered"
+    }
 }
 
 function display_login_or_register_page(type, funny_text, change_page_text) {
@@ -35,7 +43,7 @@ function display_login_or_register_page(type, funny_text, change_page_text) {
     let button = document.querySelector("button");
     button.addEventListener("click", input_handler);
 
-    let change_page_button = document.querySelector("#change_page");
+    let change_page_button = document.querySelector("#change_page_text");
     change_page_button.addEventListener("click", change_page);
 
     function change_page () {

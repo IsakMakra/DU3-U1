@@ -3,9 +3,12 @@ body {
     background-color: black;
 }
 
+* {
+    text-shadow: darkred 2px 2px 2px;
+}
+
 main {
     border-radius: 30px;
-    background-color: orangered;
     height: 100vh;
 }
 
@@ -25,8 +28,7 @@ header > img {
 
 header > div {
     justify-self: end;
-    font-size: 20px;
-    text-shadow: darkred 3px 3px 3px;
+    font-size: 15px;
     grid-column: 2;
 }
 
@@ -38,5 +40,4 @@ section {
 footer {
     padding: 0 20px;
     font-size: 15px;
-    text-shadow: darkred 3px 3px 3px;
 }
