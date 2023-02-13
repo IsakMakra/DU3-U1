@@ -18,7 +18,7 @@ function create_login_or_register (type, funny_text, change_page_text) {
             <p class="login_credentials" id="un">User Name:</p>
             <input name="un"> 
             <p class="login_credentials" id="pw">Password:</p>
-            <input name="pw">
+            <input type="password" name="pw">
             <p id="funny_text">${funny_text}</p>
             <button>${type}</button>
         </div>
