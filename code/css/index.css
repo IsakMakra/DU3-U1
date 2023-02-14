@@ -1,31 +1,36 @@
 body {
     margin: 0;
+
     background-color: black;
 }
 
 main {
     border-radius: 30px;
+
     height: 100vh;
 }
 
 header {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    padding: 20px;
     align-items: center;
+
+    padding: 20px;
     height: 40px;
 }
 
 header > img {
     height: 40px;
     width: 40px;
+
     grid-column: 1;
 }
 
 header > div {
     justify-self: end;
-    font-size: 15px;
     grid-column: 2;
+
+    font-size: 15px;
 }
 
 section {
@@ -34,5 +39,6 @@ section {
 
 footer {
     padding: 0 20px;
+    
     font-size: 15px;
 }

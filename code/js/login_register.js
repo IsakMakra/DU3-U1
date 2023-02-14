@@ -2,16 +2,18 @@
 
 let type_login = "LOGIN";
 let text_login = "Let the magic start!"; 
-let change_page_text_login = "New to this? Register for free";
+let change_type_text_login = "New to this? Register for free";
 
 let type_register = "REGISTER";
 let text_register = "Ready when you are..."; 
-let change_page_text_register = "Already have an account? Go to login";
+let change_type_text_register = "Already have an account? Go to login";
 
 let background = document.querySelector("main");
 let content = document.querySelector("section");
+let at_register_page;
 
-function create_login_or_register (type, text, change_page_text) {
+function create_login_or_register (type, text, change_type_text) {
+
     content.innerHTML = ``;
     content.innerHTML = `
         <h1>${type}</h1>
@@ -23,36 +25,48 @@ function create_login_or_register (type, text, change_page_text) {
         </div>
         <p id="text">${text}</p>
         <button>${type}</button>
-        <div id="change_page">
-            <p id="change_page_text">${change_page_text}</p>
+        <div id="change_type">
+            <p id="change_type_text">${change_type_text}</p>
         </div>
     `;
 
     if (type === type_register) {
+
         background.style.backgroundColor = "red";
+        at_register_page = true;
+
     }
     else {
+
         background.style.backgroundColor = "orangered"
+        at_register_page = false;
+
     }
 }
 
-function display_login_or_register_page(type, text, change_page_text) {
-    create_login_or_register(type, text, change_page_text);
+function display_login_or_register_page(type, text, change_type_text) {
+
+    create_login_or_register(type, text, change_type_text);
 
     let current_type = document.querySelector("h1").textContent;
 
     let button = document.querySelector("button");
     button.addEventListener("click", input_handler);
 
-    let change_page_button = document.querySelector("#change_page_text");
-    change_page_button.addEventListener("click", change_page);
+    let change_type_button = document.querySelector("#change_type_text");
+    change_type_button.addEventListener("click", change_type);
 
-    function change_page () {
+    function change_type () {
+
         if (current_type === type_login) {
-            display_login_or_register_page(type_register, text_register, change_page_text_register);
+
+            display_login_or_register_page(type_register, text_register, change_type_text_register);
+
         }
         else if (document.querySelector("h1").textContent === type_register) {
-            display_login_or_register_page(type_login, text_login, change_page_text_login);
+
+            display_login_or_register_page(type_login, text_login, change_type_text_login);
+
         }
     }
 
@@ -62,33 +76,60 @@ function display_login_or_register_page(type, text, change_page_text) {
         let password_input = document.querySelector("input[name='pw']").value;
         
         if (current_type === type_login) {
+
             console.log(`Username: ${username_input}`);
             console.log(`Password: ${password_input}`);
 
             let GET_request = new Request(`${login_register_prefix}?action=check_credentials&user_name=${username_input}&password=${password_input}`);
-            fetch_handler(GET_request);
+            
+            get_credentials();
+
+            async function get_credentials() {
+
+                let login_resource = await fetch_handler(GET_request);
+
+                display_logged_in();
+            
+                function display_logged_in() {
+                    
+                    console.log(login_resource);
+                    content.innerHTML = `
+                    <div id="logged_in">
+                        <p>${login_resource.data.user_name}</p>
+                        <button>logout</button>
+                    </div>
+                    `;
+
+                    display_quiz();
+
+                }
+            }
 
         }
         else if (current_type === type_register) {
+
             console.log(`Username: ${username_input}`);
             console.log(`Password: ${password_input}`);
 
             let body_post = {
+
                 action: "register",
                 user_name: username_input,
                 password: password_input,
+
             }
 
             let options = {
+
                 method: "POST",
                 body: JSON.stringify(body_post),
                 headers:{"Content-type":"application/json; charset=UTF-8"},
+
             }
 
             let POST_request = new Request(login_register_prefix, options);
             fetch_handler(POST_request);
+
         }
-    
-        
     }
 }
