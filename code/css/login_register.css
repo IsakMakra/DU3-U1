@@ -66,6 +66,7 @@ button:hover {
 }
 
 .box {
+    text-align: center;
     background-color: red;
     padding: 20px 5px;
     width: 100%;
