@@ -36,7 +36,16 @@ button {
     margin: 30px 0;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 #change_page_text {
     font-size: 15px;
     text-decoration: underline;
+}
+
+#change_page_text:hover {
+    cursor: pointer;
+    color: orange;
 }
