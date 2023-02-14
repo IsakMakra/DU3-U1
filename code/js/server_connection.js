@@ -22,8 +22,12 @@ async function fetch_handler (URL) {
         text.textContent = "Wrong username or password.";
         text.classList.add("wrong_credentials");
     }
-
-    //ADD REGISTER MESSAGE
+    else if (response.status === 200 && document.querySelector("h1").textContent === type_register) {
+        display_message("Registration Complete. Proceed to login.")
+    }
+    else if (response.status === 200 && document.querySelector("h1").textContent === type_login) {
+        display_message("Success!")
+    }
 
     let resource = await response.json();
 

@@ -65,14 +65,28 @@ function display_login_or_register_page(type, text, change_page_text) {
             console.log(`Username: ${username_input}`);
             console.log(`Password: ${password_input}`);
 
-            let response = fetch_handler(`${account_prefix}?action=check_credentials&user_name=${username_input}&password=${password_input}`);
+            let GET_request = new Request(`${login_register_prefix}?action=check_credentials&user_name=${username_input}&password=${password_input}`);
+            fetch_handler(GET_request);
 
         }
         else if (current_type === type_register) {
             console.log(`Username: ${username_input}`);
             console.log(`Password: ${password_input}`);
 
-            //ADD POST STUFF
+            let body_post = {
+                action: "register",
+                user_name: username_input,
+                password: password_input,
+            }
+
+            let options = {
+                method: "POST",
+                body: JSON.stringify(body_post),
+                headers:{"Content-type":"application/json; charset=UTF-8"},
+            }
+
+            let POST_request = new Request(login_register_prefix, options);
+            fetch_handler(POST_request);
         }
     
         

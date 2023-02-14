@@ -1,6 +1,6 @@
 "use strict";
 
-let account_prefix = "https://teaching.maumt.se/apis/access/";
+let login_register_prefix = "https://teaching.maumt.se/apis/access/";
 
 function get_pic_prefix(breed_url) {
     let URL = `https://dog.ceo/api/breed/${breed_url}/images/random`;
