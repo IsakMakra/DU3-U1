@@ -34,12 +34,11 @@ async function fetch_handler (URL) {
         display_message("Registration Complete. Proceed to login.")
 
     }
-    else {
+    else if (response.status === 200 && at_login_page === true){
         login_ok = true;
     }
 
     let resource = await response.json();
-    await console.log(resource);
     return resource;
 }
 

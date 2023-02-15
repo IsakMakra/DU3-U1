@@ -10,6 +10,8 @@ let change_type_text_register = "Already have an account? Go to login";
 
 let background = document.querySelector("main");
 let content = document.querySelector("section");
+
+let at_login_page;
 let at_register_page;
 
 function create_login_or_register (type, text, change_type_text) {
@@ -34,12 +36,14 @@ function create_login_or_register (type, text, change_type_text) {
 
         background.style.backgroundColor = "red";
         at_register_page = true;
+        at_login_page = false;        
 
     }
     else {
 
         background.style.backgroundColor = "orangered"
         at_register_page = false;
+        at_login_page = true;
 
     }
 }
@@ -77,9 +81,6 @@ function display_login_or_register_page(type, text, change_type_text) {
         
         if (current_type === type_login) {
 
-            console.log(`Username: ${username_input}`);
-            console.log(`Password: ${password_input}`);
-
             let GET_request = new Request(`${login_register_prefix}?action=check_credentials&user_name=${username_input}&password=${password_input}`);
             
             get_credentials();
@@ -90,59 +91,14 @@ function display_login_or_register_page(type, text, change_type_text) {
 
                 if (login_ok === true) {
 
-                    display_logged_in();
+                    display_logged_in(login_resource.data);
 
                 }
             
-                function display_logged_in() {
-
-                    content.innerHTML = "";
-
-                    let logged_in_dom = document.createElement("div");
-                    content.appendChild(logged_in_dom);
-                    logged_in_dom.classList.add("logged_in");
-                    logged_in_dom.innerHTML = `
-                        <p>${login_resource.data.user_name}</p>
-                    `;
-                    
-                    let logout_button = document.createElement("button");
-                    logged_in_dom.appendChild(logout_button);
-                    logout_button.classList.add("logout_button");
-                    logout_button.textContent = "logout";
-                    logout_button.addEventListener("click", local_storage_remove_credentials);
-
-                    local_storage_save_credentials(login_resource.data.user_name, login_resource.data.password);
-
-                    function local_storage_save_credentials(us, pw) {
-
-                        let credentials = {
-
-                            user_name: us,
-                            password: pw,
-
-                        }
-
-                        let credentials_stringified = JSON.stringify(credentials);
-
-                        localStorage.setItem("credentials", credentials_stringified);
-
-                    }
-
-                    function local_storage_remove_credentials() {
-                        localStorage.removeItem("credentials");
-                        location.reload();
-                    }
-
-                    display_quiz();
-
-                }
             }
 
         }
         else if (current_type === type_register) {
-
-            console.log(`Username: ${username_input}`);
-            console.log(`Password: ${password_input}`);
 
             let body_post = {
 
@@ -165,4 +121,50 @@ function display_login_or_register_page(type, text, change_type_text) {
 
         }
     }
+}
+
+function display_logged_in(object) {
+
+    content.innerHTML = "";
+    background.style.backgroundColor = "orangered";
+
+    let logged_in_dom = document.createElement("div");
+    content.appendChild(logged_in_dom);
+    logged_in_dom.classList.add("logged_in");
+    logged_in_dom.innerHTML = `
+        <p>${object.user_name}</p>
+    `;
+    
+    let logout_button = document.createElement("button");
+    logged_in_dom.appendChild(logout_button);
+    logout_button.classList.add("logout_button");
+    logout_button.textContent = "logout";
+    logout_button.addEventListener("click", local_storage_remove_credentials);
+
+    local_storage_save_credentials(object.user_name, object.password);
+
+    function local_storage_save_credentials(us, pw) {
+
+        let credentials = {
+
+            user_name: us,
+            password: pw,
+
+        }
+
+        let credentials_stringified = JSON.stringify(credentials);
+
+        localStorage.setItem("credentials", credentials_stringified);
+
+    }
+
+    function local_storage_remove_credentials() {
+
+        localStorage.removeItem("credentials");
+        location.reload();
+
+    }
+
+    display_quiz();
+
 }

@@ -14,7 +14,13 @@ function get_pic_prefix(breed_url) {
 
 let recent_credentials = JSON.parse(localStorage.getItem("credentials"));
 
-console.log(recent_credentials);
+if (recent_credentials !== null) {
 
-display_login_or_register_page(type_login, text_login, change_type_text_login);
+    display_logged_in(recent_credentials);
 
+}
+else {
+
+    display_login_or_register_page(type_login, text_login, change_type_text_login);
+
+}
