@@ -85,10 +85,13 @@ button:hover {
     margin-top: 10px;
 }
 
+#change_page {
+    padding: 50px 0;
+}
+
 #change_page_text {
     font-size: 15px;
-    text-decoration: underline;
-    padding: 50px 0;
+    text-decoration:underline;
 }
 
 #change_page_text:hover {

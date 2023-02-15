@@ -23,7 +23,9 @@ function create_login_or_register (type, text, change_page_text) {
         </div>
         <p id="text">${text}</p>
         <button>${type}</button>
-        <p id="change_page_text">${change_page_text}</p>
+        <div id="change_page">
+            <p id="change_page_text">${change_page_text}</p>
+        </div>
     `;
 
     if (type === type_register) {
