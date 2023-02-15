@@ -67,7 +67,7 @@ function display_login_or_register_page(type, text, change_type_text) {
             display_login_or_register_page(type_register, text_register, change_type_text_register);
 
         }
-        else if (document.querySelector("h1").textContent === type_register) {
+        else if (current_type === type_register) {
 
             display_login_or_register_page(type_login, text_login, change_type_text_login);
 
@@ -91,12 +91,10 @@ function display_login_or_register_page(type, text, change_type_text) {
 
                 if (login_ok === true) {
 
-                    display_logged_in(login_resource.data);
+                    display_quiz_page(login_resource.data);
 
                 }
-            
             }
-
         }
         else if (current_type === type_register) {
 
@@ -121,50 +119,4 @@ function display_login_or_register_page(type, text, change_type_text) {
 
         }
     }
-}
-
-function display_logged_in(object) {
-
-    content.innerHTML = "";
-    background.style.backgroundColor = "orangered";
-
-    let logged_in_dom = document.createElement("div");
-    content.appendChild(logged_in_dom);
-    logged_in_dom.classList.add("logged_in");
-    logged_in_dom.innerHTML = `
-        <p>${object.user_name}</p>
-    `;
-    
-    let logout_button = document.createElement("button");
-    logged_in_dom.appendChild(logout_button);
-    logout_button.classList.add("logout_button");
-    logout_button.textContent = "logout";
-    logout_button.addEventListener("click", local_storage_remove_credentials);
-
-    local_storage_save_credentials(object.user_name, object.password);
-
-    function local_storage_save_credentials(us, pw) {
-
-        let credentials = {
-
-            user_name: us,
-            password: pw,
-
-        }
-
-        let credentials_stringified = JSON.stringify(credentials);
-
-        localStorage.setItem("credentials", credentials_stringified);
-
-    }
-
-    function local_storage_remove_credentials() {
-
-        localStorage.removeItem("credentials");
-        location.reload();
-
-    }
-
-    display_quiz();
-
 }

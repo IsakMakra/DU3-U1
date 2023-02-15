@@ -4,22 +4,20 @@ let login_ok = false;
 
 async function fetch_handler (URL) {
 
-    display_message("Contacting Server...");
+    display_message("Contacting Server...", "CLOSE");
 
     let response = await fetch(URL);
-
-    await console.log(response);
     
     remove_message();
 
     if (response.status === 418) {
 
-        display_message("The server thinks it´s not a teapot!");
+        display_message("The server thinks it´s not a teapot!", "CLOSE");
 
     }
     else if (response.status === 409) {
 
-        display_message("Sorry, that name is taken. Please try with another one");
+        display_message("Sorry, that name is taken. Please try with another one", "CLOSE");
 
     }
     else if (response.status === 404) {
@@ -31,43 +29,65 @@ async function fetch_handler (URL) {
     }
     else if (response.status === 200 && at_register_page === true) {
 
-        display_message("Registration Complete. Proceed to login.")
+        display_message("Registration Complete. Proceed to login.", "CLOSE")
 
     }
-    else if (response.status === 200 && at_login_page === true){
+    else if (response.status === 200 && at_login_page === true) {
+
         login_ok = true;
+
     }
 
     let resource = await response.json();
     return resource;
+
 }
 
 let overlay = document.querySelector("#overlay");
 let box = document.querySelector("#box");
 
-function display_message(message) {
+function display_message(message, close_message) {
 
     overlay.classList.add("overlay");
 
     box.classList.add("box");
     box.textContent = message;
 
-    if (message === "Contacting Server...") {
+    if (message === "Contacting Server..." || message === "Getting random image...") {
 
         return;
 
     }
 
     let box_button = document.createElement("button");
-    box_button.textContent = "CLOSE";
+    box_button.textContent = close_message;
     box_button.classList.add("close_button");
     box.appendChild(box_button);
+
     box_button.addEventListener("click", button_clicked);
 
+    if(message === "Correct!") {
+
+        box.style.backgroundColor = "lime";
+        
+    }
+    else {
+
+        box.style.backgroundColor = "red";
+
+    }
+
     function button_clicked(event) {
+        
 
-        remove_message();
-
+        if(quiz_time === true) {
+            
+            remove_message();
+            display_quiz_page(JSON.parse(localStorage.getItem("credentials")));
+        }
+        else {
+            remove_message();
+        }
     }
 
 }

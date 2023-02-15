@@ -23,3 +23,25 @@
     border: solid black 1px;
     box-sizing: border-box;
 }
+
+.image {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 10px;
+
+    border-radius: 10px;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+    gap: 5px;
+    width: 100%;
+}
+
+.option {
+    border-radius: 10px;
+    border: solid black 1px;
+    box-sizing: border-box;
+}
