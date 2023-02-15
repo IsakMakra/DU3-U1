@@ -1,17 +1,17 @@
 "use strict";
 
 let type_login = "LOGIN";
-let funny_text_login = "Let the magic start!"; 
+let text_login = "Let the magic start!"; 
 let change_page_text_login = "New to this? Register for free";
 
 let type_register = "REGISTER";
-let funny_text_register = "Ready when you are..."; 
+let text_register = "Ready when you are..."; 
 let change_page_text_register = "Already have an account? Go to login";
 
 let background = document.querySelector("main");
 let content = document.querySelector("section");
 
-function create_login_or_register (type, funny_text, change_page_text) {
+function create_login_or_register (type, text, change_page_text) {
     content.innerHTML = ``;
     content.innerHTML = `
         <h1>${type}</h1>
@@ -21,7 +21,7 @@ function create_login_or_register (type, funny_text, change_page_text) {
             <p class="login_credentials" id="pw">Password:</p>
             <input type="password" name="pw">
         </div>
-        <p id="funny_text">${funny_text}</p>
+        <p id="text">${text}</p>
         <button>${type}</button>
         <p id="change_page_text">${change_page_text}</p>
     `;
@@ -34,9 +34,8 @@ function create_login_or_register (type, funny_text, change_page_text) {
     }
 }
 
-function display_login_or_register_page(type, funny_text, change_page_text) {
-
-    create_login_or_register(type, funny_text, change_page_text);
+function display_login_or_register_page(type, text, change_page_text) {
+    create_login_or_register(type, text, change_page_text);
 
     let current_type = document.querySelector("h1").textContent;
 
@@ -48,10 +47,10 @@ function display_login_or_register_page(type, funny_text, change_page_text) {
 
     function change_page () {
         if (current_type === type_login) {
-            display_login_or_register_page(type_register, funny_text_register, change_page_text_register);
+            display_login_or_register_page(type_register, text_register, change_page_text_register);
         }
         else if (document.querySelector("h1").textContent === type_register) {
-            display_login_or_register_page(type_login, funny_text_login, change_page_text_login);
+            display_login_or_register_page(type_login, text_login, change_page_text_login);
         }
     }
 
@@ -61,16 +60,19 @@ function display_login_or_register_page(type, funny_text, change_page_text) {
         let password_input = document.querySelector("input[name='pw']").value;
         
         if (current_type === type_login) {
-            console.log("You Tried To Login With The Following...");
             console.log(`Username: ${username_input}`);
             console.log(`Password: ${password_input}`);
+
+            let response = fetch_handler(`${account_prefix}?action=check_credentials&user_name=${username_input}&password=${password_input}`);
+
         }
         else if (current_type === type_register) {
-            console.log("A New Account Has Been Made...")
             console.log(`Username: ${username_input}`);
             console.log(`Password: ${password_input}`);
+
+            //ADD POST STUFF
         }
     
-        //ADD STUFF
+        
     }
 }
