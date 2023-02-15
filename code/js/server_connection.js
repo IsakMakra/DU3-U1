@@ -23,6 +23,8 @@ async function fetch_handler (URL) {
         text.classList.add("wrong_credentials");
     }
 
+    //ADD REGISTER MESSAGE
+
     let resource = await response.json();
 
     await console.log(resource);
