@@ -6,6 +6,7 @@ async function fetch_handler (URL) {
     display_message(contacting_server_string);
 
     let response = await fetch(URL);
+
     await console.log(response);
     
     remove_message();
@@ -23,6 +24,7 @@ async function fetch_handler (URL) {
     }
 
     let resource = await response.json();
+
     await console.log(resource);
 
     return resource;
@@ -33,7 +35,7 @@ let box = document.querySelector("#box");
 
 function display_message(message) {
     overlay.classList.add("overlay");
-    box.innerHTML = "";
+
     box.classList.add("box");
     box.textContent = message;
 
