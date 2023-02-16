@@ -1,4 +1,4 @@
-#logged_in {
+.logged_in {
     background-color: white;
 
     display: grid;
@@ -13,7 +13,7 @@
     box-sizing: border-box;
 }
 
-#logged_in > button {
+.logout_button {
     height: 25px;
     width: 50px;
 

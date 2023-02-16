@@ -1,5 +1,7 @@
 "use strict";
 
+let login_ok = false;
+
 async function fetch_handler (URL) {
 
     display_message("Contacting Server...");
@@ -31,6 +33,9 @@ async function fetch_handler (URL) {
 
         display_message("Registration Complete. Proceed to login.")
 
+    }
+    else {
+        login_ok = true;
     }
 
     let resource = await response.json();

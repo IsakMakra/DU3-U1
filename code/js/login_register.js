@@ -88,17 +88,54 @@ function display_login_or_register_page(type, text, change_type_text) {
 
                 let login_resource = await fetch_handler(GET_request);
 
-                display_logged_in();
+                if (login_ok === true) {
+
+                    display_logged_in();
+
+                }
             
                 function display_logged_in() {
-                    
-                    console.log(login_resource);
-                    content.innerHTML = `
-                    <div id="logged_in">
+
+                    content.innerHTML = "";
+
+                    let logged_in_dom = document.createElement("div");
+                    content.appendChild(logged_in_dom);
+                    logged_in_dom.classList.add("logged_in");
+                    logged_in_dom.innerHTML = `
                         <p>${login_resource.data.user_name}</p>
-                        <button>logout</button>
-                    </div>
                     `;
+                    
+                    let logout_button = document.createElement("button");
+                    logged_in_dom.appendChild(logout_button);
+                    logout_button.classList.add("logout_button");
+                    logout_button.textContent = "logout";
+                    logout_button.addEventListener("click", local_storage_remove_credentials);
+
+                    local_storage_save_credentials(login_resource.data.user_name, login_resource.data.password);
+
+                    function local_storage_save_credentials(us, pw) {
+
+                        let credentials = {
+
+                            user_name: us,
+                            password: pw,
+
+                        }
+
+                        let credentials_stringified = JSON.stringify(credentials);
+
+                        localStorage.setItem("credentials", credentials_stringified);
+
+                        let credentials_parsed = JSON.parse(localStorage.getItem("credentials"));
+
+                        console.log(credentials_parsed);
+
+                    }
+
+                    function local_storage_remove_credentials() {
+                        localStorage.removeItem("credentials");
+                        location.reload();
+                    }
 
                     display_quiz();
 
