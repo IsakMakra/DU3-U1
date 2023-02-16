@@ -4,7 +4,9 @@ let login_ok = false;
 
 async function fetch_handler (URL) {
 
-    display_message("Contacting Server...", "CLOSE");
+    if(quiz_time !== true) {
+        display_message("Contacting Server...", "CLOSE");
+    }
 
     let response = await fetch(URL);
     
@@ -79,6 +81,7 @@ function display_message(message, close_message) {
 
     function button_clicked(event) {
         
+        box.style.backgroundColor = "red";
 
         if(quiz_time === true) {
             
