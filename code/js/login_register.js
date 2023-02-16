@@ -126,10 +126,6 @@ function display_login_or_register_page(type, text, change_type_text) {
 
                         localStorage.setItem("credentials", credentials_stringified);
 
-                        let credentials_parsed = JSON.parse(localStorage.getItem("credentials"));
-
-                        console.log(credentials_parsed);
-
                     }
 
                     function local_storage_remove_credentials() {
