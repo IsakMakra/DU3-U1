@@ -1,11 +1,5 @@
 "use strict";
 
-function get_random_number() {
-
-    return Math.floor(Math.random() * (ALL_BREEDS.length - 0) + 0);
-
-}
-
 let quiz_time = false;
 
 function display_quiz_page(credentials_logged_in) {
@@ -130,4 +124,10 @@ function quiz_handler() {
         }
 
     }
+}
+
+function get_random_number() {
+
+    return Math.floor(Math.random() * (ALL_BREEDS.length - 0) + 0);
+
 }

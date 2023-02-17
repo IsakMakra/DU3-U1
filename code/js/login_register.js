@@ -1,10 +1,10 @@
 "use strict";
 
 let type_login = "LOGIN";
+let type_register = "REGISTER";
+
 let text_login = "Let the magic start!"; 
 let change_type_text_login = "New to this? Register for free";
-
-let type_register = "REGISTER";
 let text_register = "Ready when you are..."; 
 let change_type_text_register = "Already have an account? Go to login";
 

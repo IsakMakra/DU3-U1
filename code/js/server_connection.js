@@ -2,6 +2,9 @@
 
 let login_ok = false;
 
+let overlay = document.querySelector("#overlay");
+let box = document.querySelector("#box");
+
 async function fetch_handler (URL) {
 
     if(quiz_time !== true) {
@@ -44,9 +47,6 @@ async function fetch_handler (URL) {
     return resource;
 
 }
-
-let overlay = document.querySelector("#overlay");
-let box = document.querySelector("#box");
 
 function display_message(message, close_message) {
 
