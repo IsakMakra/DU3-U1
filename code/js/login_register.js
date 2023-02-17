@@ -91,6 +91,21 @@ function display_login_or_register_page(type, text, change_type_text) {
 
                 if (login_ok === true) {
 
+                    local_storage_save_credentials(username_input);
+
+                    function local_storage_save_credentials(username) {
+                
+                        let credentials = {
+                
+                            user_name: username,
+                
+                        }
+                
+                        let credentials_stringified = JSON.stringify(credentials);
+                        localStorage.setItem("credentials", credentials_stringified);
+                
+                    }
+
                     display_quiz_page(username_input);
 
                 }

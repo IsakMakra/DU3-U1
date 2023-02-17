@@ -22,25 +22,10 @@ function display_quiz_page(username) {
     logout_button.textContent = "logout";
     logout_button.addEventListener("click", local_storage_remove_credentials);
 
-    local_storage_save_credentials(username);
-
     function local_storage_remove_credentials(event) {
 
         localStorage.removeItem("credentials");
         location.reload();
-
-    }
-
-    function local_storage_save_credentials(username) {
-
-        let credentials = {
-
-            user_name: username,
-
-        }
-
-        let credentials_stringified = JSON.stringify(credentials);
-        localStorage.setItem("credentials", credentials_stringified);
 
     }
 
