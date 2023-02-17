@@ -87,9 +87,12 @@ function display_message(message, close_message) {
             
             remove_message();
             display_quiz_page(recent_credentials.user_name);
+
         }
         else {
+
             remove_message();
+            
         }
     }
 

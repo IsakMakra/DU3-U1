@@ -87,6 +87,8 @@ function display_login_or_register_page(type, text, change_type_text) {
 
             async function get_credentials() {
 
+                console.log(username_input, password_input);
+
                 await fetch_handler(GET_request);
 
                 if (login_ok === true) {
@@ -112,6 +114,8 @@ function display_login_or_register_page(type, text, change_type_text) {
             }
         }
         else if (current_type === type_register) {
+
+            console.log(username_input, password_input);
 
             let body_post = {
 
