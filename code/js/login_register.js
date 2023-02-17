@@ -87,11 +87,11 @@ function display_login_or_register_page(type, text, change_type_text) {
 
             async function get_credentials() {
 
-                let login_resource = await fetch_handler(GET_request);
+                await fetch_handler(GET_request);
 
                 if (login_ok === true) {
 
-                    display_quiz_page(login_resource.data);
+                    display_quiz_page(username_input);
 
                 }
             }

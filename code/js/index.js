@@ -13,7 +13,7 @@ function get_pic_prefix(breed_url) {
 
 if (recent_credentials !== null) {
 
-    display_quiz_page(recent_credentials);
+    display_quiz_page(recent_credentials.user_name);
 
 }
 else {

@@ -2,7 +2,7 @@
 
 let quiz_time = false;
 
-function display_quiz_page(credentials_logged_in) {
+function display_quiz_page(username) {
 
     quiz_time = true;
 
@@ -13,7 +13,7 @@ function display_quiz_page(credentials_logged_in) {
     content.appendChild(logged_in_dom);
     logged_in_dom.classList.add("logged_in");
     logged_in_dom.innerHTML = `
-        <p>${credentials_logged_in.user_name}</p>
+        <p>${username}</p>
     `;
     
     let logout_button = document.createElement("button");
@@ -22,7 +22,7 @@ function display_quiz_page(credentials_logged_in) {
     logout_button.textContent = "logout";
     logout_button.addEventListener("click", local_storage_remove_credentials);
 
-    local_storage_save_credentials(credentials_logged_in.user_name, credentials_logged_in.password);
+    local_storage_save_credentials(username);
 
     function local_storage_remove_credentials(event) {
 
@@ -31,12 +31,11 @@ function display_quiz_page(credentials_logged_in) {
 
     }
 
-    function local_storage_save_credentials(us, pw) {
+    function local_storage_save_credentials(username) {
 
         let credentials = {
 
-            user_name: us,
-            password: pw,
+            user_name: username,
 
         }
 
@@ -65,7 +64,8 @@ function quiz_handler() {
         let correct_breed = get_random_number();
 
         let prefix = get_pic_prefix(ALL_BREEDS[correct_breed].url);
-        let resource = await fetch_handler(prefix);
+        let response = await fetch_handler(prefix);
+        let resource = await response.json();
         img.removeAttribute("src");
         await img.setAttribute("src", resource.message);
 

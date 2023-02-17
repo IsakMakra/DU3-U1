@@ -43,8 +43,7 @@ async function fetch_handler (URL) {
 
     }
 
-    let resource = await response.json();
-    return resource;
+    return response;
 
 }
 
