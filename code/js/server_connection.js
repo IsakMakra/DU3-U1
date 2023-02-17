@@ -25,7 +25,7 @@ async function fetch_handler (URL) {
         display_message("Sorry, that name is taken. Please try with another one", "CLOSE");
 
     }
-    else if (response.status === 404) {
+    else if (response.status === 404 && at_login_page === true || response.status === 400 && at_login_page === true) {
 
         let text = document.querySelector("#text");
         text.textContent = "Wrong username or password.";
