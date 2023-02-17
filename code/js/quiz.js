@@ -8,7 +8,7 @@ function get_random_number() {
 
 let quiz_time = false;
 
-function display_quiz_page(object) {
+function display_quiz_page(credentials_logged_in) {
 
     quiz_time = true;
 
@@ -19,7 +19,7 @@ function display_quiz_page(object) {
     content.appendChild(logged_in_dom);
     logged_in_dom.classList.add("logged_in");
     logged_in_dom.innerHTML = `
-        <p>${object.user_name}</p>
+        <p>${credentials_logged_in.user_name}</p>
     `;
     
     let logout_button = document.createElement("button");
@@ -28,7 +28,14 @@ function display_quiz_page(object) {
     logout_button.textContent = "logout";
     logout_button.addEventListener("click", local_storage_remove_credentials);
 
-    local_storage_save_credentials(object.user_name, object.password);
+    local_storage_save_credentials(credentials_logged_in.user_name, credentials_logged_in.password);
+
+    function local_storage_remove_credentials(event) {
+
+        localStorage.removeItem("credentials");
+        location.reload();
+
+    }
 
     function local_storage_save_credentials(us, pw) {
 
@@ -41,13 +48,6 @@ function display_quiz_page(object) {
 
         let credentials_stringified = JSON.stringify(credentials);
         localStorage.setItem("credentials", credentials_stringified);
-
-    }
-
-    function local_storage_remove_credentials(event) {
-
-        localStorage.removeItem("credentials");
-        location.reload();
 
     }
 
@@ -80,21 +80,30 @@ function quiz_handler() {
         content.appendChild(options);
 
         let options_array = [];
+        options_array.push(correct_breed);
 
         for(let i = 0; i < 3; i++) {
             
             let random_breed = get_random_number();
-            options_array.push(random_breed);
 
             for(let ii = 0; ii < options_array.length; ii++) {
 
-                if(random_breed === correct_breed || random_breed === options_array[ii]) {
-                    get_random_number();
+                if(random_breed === options_array[ii]) {
+
+                    continue;
+                    ii++;
+
+                }
+                else {
+
+                    options_array.push(random_breed);
+
                 }
 
             }
 
             create_option(random_breed);
+
         }
 
         create_option(correct_breed);
