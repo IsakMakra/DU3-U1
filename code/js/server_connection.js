@@ -43,6 +43,7 @@ async function fetch_handler (URL) {
 
     }
 
+    console.log(response);
     return response;
 
 }
