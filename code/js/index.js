@@ -2,7 +2,7 @@
 
 let login_register_prefix = "https://teaching.maumt.se/apis/access/";
 
-let recent_credentials = JSON.parse(localStorage.getItem("credentials"));
+let last_login = JSON.parse(localStorage.getItem("credentials"));
 
 function get_pic_prefix(breed_url) {
 
@@ -11,9 +11,9 @@ function get_pic_prefix(breed_url) {
 
 }
 
-if (recent_credentials !== null) {
+if (last_login !== null) {
 
-    display_quiz_page(recent_credentials.user_name);
+    display_quiz_page(last_login.user_name);
 
 }
 else {

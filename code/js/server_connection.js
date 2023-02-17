@@ -86,7 +86,8 @@ function display_message(message, close_message) {
         if(quiz_time === true) {
             
             remove_message();
-            display_quiz_page(recent_credentials.user_name);
+            let last_login = JSON.parse(localStorage.getItem("credentials"));
+            display_quiz_page(last_login.user_name);
 
         }
         else {
