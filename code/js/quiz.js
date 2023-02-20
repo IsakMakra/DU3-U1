@@ -62,23 +62,18 @@ function quiz_handler() {
         options_array.push(correct_breed);
 
         for(let i = 0; i < 3; i++) {
-            
+
             let random_breed = random_number();
 
-            for(let ii = 0; ii < options_array.length; ii++) {
-
-                if(random_breed === options_array[ii]) {
+            if(options_array.includes(random_breed)) {
                     
-                    random_breed = random_number();
-                    ii++;
-                    continue;
+                i--;
+                continue;
 
-                }
-                else {
+            }
+            else {
 
-                    options_array.push(random_breed);
-
-                }
+                options_array.push(random_breed);
 
             }
 
