@@ -42,11 +42,11 @@ function quiz_handler() {
 
     display_message("Getting random image...");
 
-    get_question();
+    question_handler();
 
-    async function get_question() {
+    async function question_handler() {
 
-        let correct_breed = get_random_number();
+        let correct_breed = random_number();
 
         let prefix = get_image_prefix(ALL_BREEDS[correct_breed].url);
         let response = await fetch_handler(prefix);
@@ -63,12 +63,13 @@ function quiz_handler() {
 
         for(let i = 0; i < 3; i++) {
             
-            let random_breed = get_random_number();
+            let random_breed = random_number();
 
             for(let ii = 0; ii < options_array.length; ii++) {
 
                 if(random_breed === options_array[ii]) {
-
+                    
+                    random_breed = random_number();
                     ii++;
                     continue;
 
@@ -93,7 +94,7 @@ function quiz_handler() {
             option_button.classList.add("option");
             options.appendChild(option_button);
             option_button.textContent = `${ALL_BREEDS[random_or_correct].name}`;
-            option_button.style.order = get_random_number();
+            option_button.style.order = random_number();
 
             if(random_or_correct === correct_breed) {
 
@@ -107,11 +108,10 @@ function quiz_handler() {
             }
         
         }
-
     }
 }
 
-function get_random_number() {
+function random_number() {
 
     return Math.floor(Math.random() * (ALL_BREEDS.length - 0) + 0);
 
