@@ -7,6 +7,7 @@ function display_quiz_page(username) {
     quiz_time = true;
 
     main_content.innerHTML = "";
+
     background.style.backgroundColor = "orangered";
 
     let username_display = document.createElement("div");
@@ -25,6 +26,7 @@ function display_quiz_page(username) {
     function local_storage_remove_credentials(event) {
 
         localStorage.removeItem("credentials");
+
         location.reload();
 
     }
@@ -51,6 +53,7 @@ function quiz_handler() {
         let prefix = get_image_prefix(ALL_BREEDS[correct_breed].url);
         let response = await fetch_handler(prefix);
         let resource = await response.json();
+        
         dog_image.removeAttribute("src");
         await dog_image.setAttribute("src", resource.message);
 

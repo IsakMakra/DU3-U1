@@ -35,13 +35,15 @@ function create_login_or_register_page (type, text, change_type_text) {
     if (type === type_register) {
 
         background.style.backgroundColor = "red";
+
         at_register_page = true;
         at_login_page = false;        
 
     }
     else {
 
-        background.style.backgroundColor = "orangered"
+        background.style.backgroundColor = "orangered";
+        
         at_register_page = false;
         at_login_page = true;
 

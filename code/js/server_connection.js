@@ -87,8 +87,8 @@ function display_message(message_text, close_message_text) {
             
             remove_message();
 
-            let last_login = JSON.parse(localStorage.getItem("credentials"));
-            display_quiz_page(last_login.user_name);
+            let current_login = JSON.parse(localStorage.getItem("credentials"));
+            display_quiz_page(current_login.user_name);
 
         }
         else {
@@ -103,6 +103,7 @@ function display_message(message_text, close_message_text) {
 function remove_message() {
 
     overlay.classList.remove("overlay");
+    
     message_box.innerHTML = "";
     message_box.classList.remove("message_box");
     
