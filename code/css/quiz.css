@@ -1,4 +1,4 @@
-.logged_in {
+.username_display {
     background-color: white;
 
     display: grid;
@@ -24,7 +24,7 @@
     box-sizing: border-box;
 }
 
-.image {
+.dog_image {
     width: 100%;
     margin-top: 50px;
     margin-bottom: 10px;

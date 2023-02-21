@@ -1,23 +1,23 @@
 "use strict";
 
 let type_login = "LOGIN";
-let type_register = "REGISTER";
+let login_text = "Let the magic start!"; 
+let change_type_login_text = "New to this? Register for free";
 
-let text_login = "Let the magic start!"; 
-let change_type_text_login = "New to this? Register for free";
-let text_register = "Ready when you are..."; 
-let change_type_text_register = "Already have an account? Go to login";
+let type_register = "REGISTER";
+let register_text = "Ready when you are..."; 
+let change_type_register_text = "Already have an account? Go to login";
 
 let background = document.querySelector("main");
-let content = document.querySelector("section");
+let main_content = document.querySelector("section");
 
 let at_login_page;
 let at_register_page;
 
-function create_login_or_register (type, text, change_type_text) {
+function create_login_or_register_page (type, text, change_type_text) {
 
-    content.innerHTML = ``;
-    content.innerHTML = `
+    main_content.innerHTML = ``;
+    main_content.innerHTML = `
         <h1>${type}</h1>
         <div id ="input_field"> 
             <p class="login_credentials" id="un">User Name:</p>
@@ -50,26 +50,24 @@ function create_login_or_register (type, text, change_type_text) {
 
 function display_login_or_register_page(type, text, change_type_text) {
 
-    create_login_or_register(type, text, change_type_text);
+    create_login_or_register_page(type, text, change_type_text);
 
-    let current_type = document.querySelector("h1").textContent;
-
-    let button = document.querySelector("button");
-    button.addEventListener("click", input_handler);
+    let action_button = document.querySelector("button");
+    action_button.addEventListener("click", input_handler);
 
     let change_type_button = document.querySelector("#change_type_text");
     change_type_button.addEventListener("click", change_type);
 
     function change_type () {
 
-        if (current_type === type_login) {
+        if (type === type_login) {
 
-            display_login_or_register_page(type_register, text_register, change_type_text_register);
+            display_login_or_register_page(type_register, register_text, change_type_register_text);
 
         }
-        else if (current_type === type_register) {
+        else if (type === type_register) {
 
-            display_login_or_register_page(type_login, text_login, change_type_text_login);
+            display_login_or_register_page(type_login, login_text, change_type_login_text);
 
         }
     }
@@ -79,17 +77,17 @@ function display_login_or_register_page(type, text, change_type_text) {
         let username_input = document.querySelector("input[name='un']").value;
         let password_input = document.querySelector("input[name='pw']").value;
         
-        if (current_type === type_login) {
+        if (type === type_login) {
 
             let GET_request = new Request(`${login_register_prefix}?action=check_credentials&user_name=${username_input}&password=${password_input}`);
             
-            get_credentials();
+            login_handler();
 
-            async function get_credentials() {
+            async function login_handler() {
 
                 await fetch_handler(GET_request);
 
-                if (login_ok === true) {
+                if (login_success === true) {
 
                     local_storage_save_credentials(username_input);
 
@@ -101,8 +99,8 @@ function display_login_or_register_page(type, text, change_type_text) {
                 
                         }
                 
-                        let credentials_stringified = JSON.stringify(credentials);
-                        localStorage.setItem("credentials", credentials_stringified);
+                        let saved_credentials_stringified = JSON.stringify(credentials);
+                        localStorage.setItem("credentials", saved_credentials_stringified);
                 
                     }
 
@@ -111,7 +109,7 @@ function display_login_or_register_page(type, text, change_type_text) {
                 }
             }
         }
-        else if (current_type === type_register) {
+        else if (type === type_register) {
 
             let body_post = {
 

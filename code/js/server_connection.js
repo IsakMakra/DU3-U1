@@ -1,9 +1,9 @@
 "use strict";
 
-let login_ok = false;
+let login_success = false;
 
 let overlay = document.querySelector("#overlay");
-let box = document.querySelector("#box");
+let message_box = document.querySelector("#message_box");
 
 async function fetch_handler (URL) {
 
@@ -12,7 +12,7 @@ async function fetch_handler (URL) {
     }
 
     let response = await fetch(URL);
-    
+
     remove_message();
 
     if (response.status === 418) {
@@ -39,7 +39,7 @@ async function fetch_handler (URL) {
     }
     else if (response.status === 200 && at_login_page === true) {
 
-        login_ok = true;
+        login_success = true;
 
     }
 
@@ -48,44 +48,45 @@ async function fetch_handler (URL) {
 
 }
 
-function display_message(message, close_message) {
+function display_message(message_text, close_message_text) {
 
     overlay.classList.add("overlay");
 
-    box.classList.add("box");
-    box.textContent = message;
+    message_box.classList.add("message_box");
+    message_box.textContent = message_text;
 
-    if (message === "Contacting Server..." || message === "Getting random image...") {
+    if (message_text === "Contacting Server..." || message_text === "Getting random image...") {
 
         return;
 
     }
 
-    let box_button = document.createElement("button");
-    box_button.textContent = close_message;
-    box_button.classList.add("close_button");
-    box.appendChild(box_button);
+    let message_box_button = document.createElement("button");
+    message_box_button.textContent = close_message_text;
+    message_box_button.classList.add("close_button");
+    message_box.appendChild(message_box_button);
 
-    box_button.addEventListener("click", button_clicked);
+    message_box_button.addEventListener("click", button_clicked);
 
-    if(message === "Correct!") {
+    if(message_text === "Correct!") {
 
-        box.style.backgroundColor = "lime";
+        message_box.style.backgroundColor = "lime";
         
     }
     else {
 
-        box.style.backgroundColor = "red";
+        message_box.style.backgroundColor = "red";
 
     }
 
     function button_clicked(event) {
         
-        box.style.backgroundColor = "red";
+        message_box.style.backgroundColor = "red";
 
         if(quiz_time === true) {
             
             remove_message();
+
             let last_login = JSON.parse(localStorage.getItem("credentials"));
             display_quiz_page(last_login.user_name);
 
@@ -102,7 +103,7 @@ function display_message(message, close_message) {
 function remove_message() {
 
     overlay.classList.remove("overlay");
-    box.innerHTML = "";
-    box.classList.remove("box");
+    message_box.innerHTML = "";
+    message_box.classList.remove("message_box");
     
 }

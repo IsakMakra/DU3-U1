@@ -6,18 +6,18 @@ function display_quiz_page(username) {
 
     quiz_time = true;
 
-    content.innerHTML = "";
+    main_content.innerHTML = "";
     background.style.backgroundColor = "orangered";
 
-    let logged_in_dom = document.createElement("div");
-    content.appendChild(logged_in_dom);
-    logged_in_dom.classList.add("logged_in");
-    logged_in_dom.innerHTML = `
+    let username_display = document.createElement("div");
+    main_content.appendChild(username_display);
+    username_display.classList.add("username_display");
+    username_display.innerHTML = `
         <p>${username}</p>
     `;
     
     let logout_button = document.createElement("button");
-    logged_in_dom.appendChild(logout_button);
+    username_display.appendChild(logout_button);
     logout_button.classList.add("logout_button");
     logout_button.textContent = "logout";
     logout_button.addEventListener("click", local_storage_remove_credentials);
@@ -35,10 +35,10 @@ function display_quiz_page(username) {
 
 function quiz_handler() {
 
-    let img = document.createElement("img");
-    content.appendChild(img);
-    img.setAttribute("src", "media/logo.png");
-    img.classList.add("image");
+    let dog_image = document.createElement("img");
+    main_content.appendChild(dog_image);
+    dog_image.setAttribute("src", "media/logo.png");
+    dog_image.classList.add("dog_image");
 
     display_message("Getting random image...");
 
@@ -48,15 +48,15 @@ function quiz_handler() {
 
         let correct_breed = get_random_number();
 
-        let prefix = get_pic_prefix(ALL_BREEDS[correct_breed].url);
+        let prefix = get_image_prefix(ALL_BREEDS[correct_breed].url);
         let response = await fetch_handler(prefix);
         let resource = await response.json();
-        img.removeAttribute("src");
-        await img.setAttribute("src", resource.message);
+        dog_image.removeAttribute("src");
+        await dog_image.setAttribute("src", resource.message);
 
         let options = document.createElement("div");
         options.classList.add("options");
-        content.appendChild(options);
+        main_content.appendChild(options);
 
         let options_array = [];
         options_array.push(correct_breed);
@@ -69,8 +69,8 @@ function quiz_handler() {
 
                 if(random_breed === options_array[ii]) {
 
-                    continue;
                     ii++;
+                    continue;
 
                 }
                 else {
