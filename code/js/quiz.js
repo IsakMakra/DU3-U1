@@ -54,7 +54,6 @@ function quiz_handler() {
         let response = await fetch_handler(prefix);
         let resource = await response.json();
         
-        dog_image.removeAttribute("src");
         await dog_image.setAttribute("src", resource.message);
 
         let options = document.createElement("div");
